@@ -1,7 +1,5 @@
 import time
 
-counter = 0
-
 # Define la función
 def bienvenida():
     print("Bienvenido al Asistente Educativo de Votación.")
