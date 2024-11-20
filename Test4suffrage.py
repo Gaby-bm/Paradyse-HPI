@@ -1,141 +1,140 @@
 import time
-import random #importamos los módulos
+import random #we import the modules
 
-# Función de bienvenida
-def bienvenida():
-    print("Bienvenido al Asistente Educativo de Votación.")
-    print("Este programa evaluará tus conocimientos sobre el proceso electoral.")
-    print("Si obtienes un puntaje suficiente, podrás votar. Si no, recibirás recomendaciones para mejorar.")
-    print("¡Comencemos!\n")#en sí la bienvenida es modificable
-    time.sleep(2)#hace que el programa se detenga dos segundos antes de continuar
+# Welcome feature
+def Welcome():
+    print("Welcome to Voting Education Assistant.")
+    print("This program will test your knowledge about the electoral process.")
+    print("If you get a enough score, you will be able to vote. If not, you will receive recommendations to improve.")
+    print("¡Let's start!\n")#the welcome itself is modifiable
+    time.sleep(2)#causes the program to pause for two seconds before continuing
 
-# Función para mostrar una barra de progreso simulada
-def barra_progreso(progreso, total):
-    porcentaje = (progreso / total) * 100
-    barra = f"[{'#' * int(porcentaje // 5)}{'-' * (20 - int(porcentaje // 5))}]"
-    print(f"\rProgreso: {barra} {int(porcentaje)}%", end="", flush=True)
+# Function to display a simulated progress bar
+def progress_bar(progress, total):
+    percentage = (progress / total) * 100
+    bar = f"[{'#' * int(percent // 5)}{'-' * (20 - int(percent // 5))}]"
+    print(f"\rProgress: {bar} {int(percent)}%", end="", flush=True)
     
-#' * int(porcentaje // 5):
-#El porcentaje se divide por 5 (porque la barra tiene 20 posiciones fijas, y 100/20 = 5).
-#El resultado entero (int) indica cuántos # llenar en la barra.
-#Por ejemplo, si el progreso es del 50%, porcentaje // 5 será 10, y se imprimirán 10 #.
-#'-' * (20 - int(porcentaje // 5)):
+#' * int(percent // 5):
+#The percentage is divided by 5 (because the bar has 20 fixed positions, and 100/20 = 5).
+#The integer result (int) indicates how many # to fill in the bar.
+#For example, if progress is 50%, percentage // 5 will be 10, and 10 # will be printed.
+#'-' * (20 - int(percent // 5)):
 
-#Calcula el número restante de espacios en la barra (los que no están llenos de #).
-#Si la barra tiene 20 posiciones y se llenaron 10 con #, se imprimirán 10 -.
-#Resultado de barra:
+#Calculates the remaining number of spaces in the bar (those not filled with #).
+#If the bar has 20 positions and 10 were filled with #, 10 - will be printed.
+#Bar result:
 
-#La barra completa tiene un formato como este: [#####----------].
-#La cantidad de # y - cambia según el porcentaje calculado
+#The entire bar has a format like this: [#####----------].
+#The amount of # and - changes depending on the calculated percentage
 
-# Función del cuestionario
-def cuestionario():#modificar preguntasy respuestas
-    preguntas = [
+#Quiz feature
+def quiz():#modify questions and answers
+    questions = [
         {
-            "pregunta": "¿Por qué es importante participar en las elecciones?",
-            "opciones": ["a) Porque todos los votos cuentan", "b) Porque votar es un derecho y un deber", "c) Porque el voto influye en decisiones futuras", "d) Todas las anteriores"],
-            "respuesta": "d",
-            "ponderacion": 2  # Respuesta correcta vale 2 puntos
+            "question": "Why is it important to participate in elections?"
+            "options": ["a) Because all votes count", "b) Because voting is a right and a duty", "c) Because voting influences future decisions", "d) All of the above"],
+            "answer": "d",
+            "weighting": 2 # Correct answer is worth 2 points
         },
         {
-            "pregunta": "¿Qué significa votar de forma informada?",
-            "opciones": ["a) Conocer las propuestas de cada candidato", "b) Investigar los antecedentes de cada candidato", "c) Entender cómo las políticas propuestas afectarán a la comunidad", "d) Todas las anteriores"],
-            "respuesta": "d",
-            "ponderacion": 2
+            "question": "What does it mean to vote informedly?"
+            "options": ["a) Learn about each candidate's proposals", "b) Research each candidate's background", "c) Understand how the proposed policies will affect the community", "d) All of the above"],
+            "answer": "d",
+            "weighting": 2
         },
         {
-            "pregunta": "¿Es correcto votar basándote en información no verificada o rumores?",
-            "opciones": ["a) Sí", "b) No"],
-            "respuesta": "b",
-            "ponderacion": 1
+           "question": "Is it okay to vote based on unverified information or rumors?"
+            "options": ["a) Yes", "b) No"],
+            "answer": "b",
+            "weighting": 1
         },
         {
-            "pregunta": "¿Es tu voto anónimo y protegido por ley en las elecciones democráticas?",
-            "opciones": ["a) Sí", "b) No"],
-            "respuesta": "a",
-            "ponderacion": 1
+            "question": "Is your vote anonymous and protected by law in democratic elections?"
+            "options": ["a) Yes", "b) No"],
+            "answer": "a",
+            "weighting": 1
         },
         {
-            "pregunta": "Selecciona un beneficio de la democracia:",
-            "opciones": ["a) Libertad de expresión", "b) Igualdad ante la ley", "c) Oportunidad de elegir a los líderes", "d) Todas las anteriores"],
-            "respuesta": "d",
-            "ponderacion": 3
+           "question": "Select one benefit of democracy:",
+            "options": ["a) Freedom of expression", "b) Equality before the law", "c) Opportunity to elect leaders", "d) All of the above"],
+            "answer": "d",
+            "weighting": 3
         },
         {
-            "pregunta": "Completa: En una democracia, el poder reside en ____.",
-            "opciones": ["a) el gobierno", "b) los ciudadanos", "c) los medios de comunicación", "d) los partidos políticos"],
-            "respuesta": "b",
-            "ponderacion": 2
+           "question": "Complete: In a democracy, power resides in ____.",
+            "options": ["a) the government", "b) the citizens", "c) the media", "d) the political parties"],
+            "answer": "b",
+            "weighting": 2
         }
     ]
 
-    # Contadores de desempeño
-    correctas = 0
-    puntaje_total = 0
-    puntaje_obtenido = 0
+   # Performance counters
+    correct = 0
+    total_score = 0
+    score_obtained = 0
 
-    print("El cuestionario consta de 6 preguntas. Lee cuidadosamente y responde.")
+    print("The questionnaire consists of 6 questions. Read carefully and answer.")
     time.sleep(2)
     
-    for i, pregunta in enumerate(preguntas):
-        print(f"\nPregunta {i + 1}: {pregunta['pregunta']}")
-        for opcion in pregunta["opciones"]:
-            print(opcion)
+    for i, question in enumerate(questions):
+        print(f"\nQuestion {i + 1}: {question['question']}")
+        for option in question["options"]:
+            print(option)
         
-#f"\nPregunta {i + 1}": Muestra el número de la pregunta sumando 1 a i (porque los índices empiezan desde 0).
-#pregunta['pregunta']: Accede al texto de la pregunta desde el diccionario.
-#for opcion in pregunta["opciones"]: Recorre y muestra cada opción de respuesta contenida en la lista pregunta["opciones"].
+#f"\nQuestion {i + 1}": Shows the question number by adding 1 to i (because the indexes start from 0).
+#question['question']: Access the text of the question from the dictionary.
+#for option in question["options"]: Loops through and displays each answer option contained in the question["options"] list.
 
-        inicio_respuesta = time.time()  # Captura el inicio de la respuesta
-        respuesta = input("Escribe la letra de tu respuesta: ").strip().lower()
-        tiempo_respuesta = time.time() - inicio_respuesta  # Tiempo que tardó en responder
+        response_start = time.time() # Capture the start of the response
+        response = input("Enter the letter of your response: ").strip().lower()
+        response_time = time.time() - response_start # Time it took to respond
         
-        if respuesta == pregunta["respuesta"]:
-            print(f"¡Correcto! (+{pregunta['ponderacion']} puntos)")
-            correctas += 1
-            puntaje_obtenido += pregunta["ponderacion"]
+       if answer == question["answer"]:
+            print(f"Correct! (+{question['weighting']} points)")
+            correct += 1
+            score_obtained += question["weighting"]
         else:
-            print(f"Incorrecto. La respuesta correcta era: {pregunta['respuesta'].upper()}. (+0 puntos)")
+            print(f"Incorrect. The correct answer was: {question['answer'].upper()}. (+0 points)")
 
-        print(f"Tiempo tomado: {tiempo_respuesta:.2f} segundos.")
-        puntaje_total += pregunta["ponderacion"]
+        print(f"Time taken: {response_time:.2f} seconds.")
+        total_score += question["weighting"]
         time.sleep(1)
         
-        # Muestra la barra de progreso
-        barra_progreso(i + 1, len(preguntas))
+        # Show progress bar
+        progress_bar(i + 1, len(questions))
 
-    print("\n\nEvaluación completada.")
+   print("\n\nEvaluation completed.")
     time.sleep(1)
 
-    #Itera sobre las preguntas y captura la interacción del usuario.
-    #Evalúa las respuestas, registra puntajes y tiempos.
-    #Proporciona retroalimentación inmediata (correcto/incorrecto).
-    #Muestra el progreso del cuestionario.
+    #Iterate over questions and capture user interaction.
+    #Evaluate the answers, record scores and times.
+    #Provide immediate feedback (correct/incorrect).
+    #Shows the progress of the quiz.
 
-    print(f"Respuestas correctas: {correctas}/{len(preguntas)}")
-    print(f"Puntaje obtenido: {puntaje_obtenido}/{puntaje_total}")
+    print(f"Correct answers: {correct}/{len(questions)}")
+    print(f"Score obtained: {score_obtained}/{score_total}")
     
-    # Feedback basado en el desempeño
-    if puntaje_obtenido >= (0.7 * puntaje_total):  # 70% o más para aprobar
-        print("\n¡Felicidades! Tienes los conocimientos necesarios para votar.")
+    # Performance-based feedback
+    if score_obtained >= (0.7 * score_total): # 70% or more to pass
+        print("\nCongratulations! You have the knowledge to vote.")
     else:
-        print("\nNo alcanzaste el puntaje necesario para votar.")
-        print("Recomendamos revisar información sobre el proceso electoral y la importancia del voto informado.")
-        print("Visita sitios web confiables o consulta con especialistas en educación cívica.")
+        print("\nYou did not reach the necessary score to vote.")
+        print("We recommend reviewing information about the electoral process and the importance of informed voting.")
+        print("Visit trusted websites or consult with civic education specialists.")
 
-# Función para cerrar el programa
-def despedida():
-    print("\nGracias por usar el Asistente Educativo de Votación.")
-    print("Recuerda que un voto informado es un voto poderoso.")
-    print("¡Hasta la próxima!")
+# Function to close the program
+def farewell():
+    print("\nThank you for using the Educational Voting Assistant.")
+    print("Remember that an informed vote is a powerful vote.")
+    print("See you next time!")
     time.sleep(2)
 
-# Función principal
+# Main function
 def main():
-    bienvenida()
-    cuestionario()
-    despedida()
-
+    welcome()
+    questionnaire()
+    farewell()
 # Ejecución del programa
 if __name__ == "__main__":
     main()
