@@ -1,13 +1,12 @@
 import time
-import random  # we import the modules
 
 # Welcome feature
 def Welcome():
     print("Welcome to Voting Education Assistant.")
     print("This program will test your knowledge about the electoral process.")
     print("If you get enough score, you will be able to vote. If not, you will receive recommendations to improve.")
-    print("¡Let's start!\n")  # the welcome itself is modifiable
-    time.sleep(2)  # causes the program to pause for two seconds before continuing
+    print("¡Let's start!\n")
+    time.sleep(2)  # Causes the program to pause for two seconds before continuing
 
 # Function to display a simulated progress bar
 def progress_bar(progress, total):
@@ -16,7 +15,7 @@ def progress_bar(progress, total):
     print(f"\rProgress: {bar} {int(percentage)}%", end="", flush=True)
 
 # Quiz feature
-def quiz():  # modify questions and answers
+def quiz():  # Modify questions and answers
     questions = [
         {
             "question": "Why is it important to participate in elections?",
@@ -111,7 +110,7 @@ def farewell():
 # Main function
 def main():
     Welcome()
-    quiz()  # Corregido de questionnaire() a quiz()
+    quiz()
     farewell()
 
 # Ejecución del programa
