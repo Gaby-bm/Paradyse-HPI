@@ -1,75 +1,60 @@
 import time
-import random #we import the modules
 
 # Welcome feature
 def Welcome():
     print("Welcome to Voting Education Assistant.")
     print("This program will test your knowledge about the electoral process.")
-    print("If you get a enough score, you will be able to vote. If not, you will receive recommendations to improve.")
-    print("¡Let's start!\n")#the welcome itself is modifiable
-    time.sleep(2)#causes the program to pause for two seconds before continuing
+    print("If you get enough score, you will be able to vote. If not, you will receive recommendations to improve.")
+    print("¡Let's start!\n")
+    time.sleep(2)
 
 # Function to display a simulated progress bar
 def progress_bar(progress, total):
     percentage = (progress / total) * 100
-    bar = f"[{'#' * int(percent // 5)}{'-' * (20 - int(percent // 5))}]"
-    print(f"\rProgress: {bar} {int(percent)}%", end="", flush=True)
-    
-#' * int(percent // 5):
-#The percentage is divided by 5 (because the bar has 20 fixed positions, and 100/20 = 5).
-#The integer result (int) indicates how many # to fill in the bar.
-#For example, if progress is 50%, percentage // 5 will be 10, and 10 # will be printed.
-#'-' * (20 - int(percent // 5)):
+    bar = f"[{'#' * int(percentage // 5)}{'-' * (20 - int(percentage // 5))}]"
+    print(f"\rProgress: {bar} {int(percentage)}%", end="", flush=True)
 
-#Calculates the remaining number of spaces in the bar (those not filled with #).
-#If the bar has 20 positions and 10 were filled with #, 10 - will be printed.
-#Bar result:
-
-#The entire bar has a format like this: [#####----------].
-#The amount of # and - changes depending on the calculated percentage
-
-#Quiz feature
-def quiz():#modify questions and answers
+# Quiz feature
+def quiz():
     questions = [
         {
-            "question": "Why is it important to participate in elections?"
+            "question": "Why is it important to participate in elections?",
             "options": ["a) Because all votes count", "b) Because voting is a right and a duty", "c) Because voting influences future decisions", "d) All of the above"],
             "answer": "d",
-            "weighting": 2 # Correct answer is worth 2 points
+            "weighting": 2
         },
         {
-            "question": "What does it mean to vote informedly?"
+            "question": "What does it mean to vote informedly?",
             "options": ["a) Learn about each candidate's proposals", "b) Research each candidate's background", "c) Understand how the proposed policies will affect the community", "d) All of the above"],
             "answer": "d",
             "weighting": 2
         },
         {
-           "question": "Is it okay to vote based on unverified information or rumors?"
+            "question": "Is it okay to vote based on unverified information or rumors?",
             "options": ["a) Yes", "b) No"],
             "answer": "b",
             "weighting": 1
         },
         {
-            "question": "Is your vote anonymous and protected by law in democratic elections?"
+            "question": "Is your vote anonymous and protected by law in democratic elections?",
             "options": ["a) Yes", "b) No"],
             "answer": "a",
             "weighting": 1
         },
         {
-           "question": "Select one benefit of democracy:",
+            "question": "Select one benefit of democracy:",
             "options": ["a) Freedom of expression", "b) Equality before the law", "c) Opportunity to elect leaders", "d) All of the above"],
             "answer": "d",
             "weighting": 3
         },
         {
-           "question": "Complete: In a democracy, power resides in ____.",
+            "question": "Complete: In a democracy, power resides in ____. ",
             "options": ["a) the government", "b) the citizens", "c) the media", "d) the political parties"],
             "answer": "b",
             "weighting": 2
         }
     ]
 
-   # Performance counters
     correct = 0
     total_score = 0
     score_obtained = 0
@@ -81,16 +66,15 @@ def quiz():#modify questions and answers
         print(f"\nQuestion {i + 1}: {question['question']}")
         for option in question["options"]:
             print(option)
-        
-#f"\nQuestion {i + 1}": Shows the question number by adding 1 to i (because the indexes start from 0).
-#question['question']: Access the text of the question from the dictionary.
-#for option in question["options"]: Loops through and displays each answer option contained in the question["options"] list.
 
-        response_start = time.time() # Capture the start of the response
+        response_start = time.time()
         response = input("Enter the letter of your response: ").strip().lower()
-        response_time = time.time() - response_start # Time it took to respond
-        
-       if answer == question["answer"]:
+        response_time = time.time() - response_start
+
+        while response not in ["a", "b", "c", "d"]:
+            response = input("Invalid response. Enter a valid option: ").strip().lower()
+
+        if response == question["answer"]:
             print(f"Correct! (+{question['weighting']} points)")
             correct += 1
             score_obtained += question["weighting"]
@@ -100,41 +84,34 @@ def quiz():#modify questions and answers
         print(f"Time taken: {response_time:.2f} seconds.")
         total_score += question["weighting"]
         time.sleep(1)
-        
+
         # Show progress bar
         progress_bar(i + 1, len(questions))
 
-   print("\n\nEvaluation completed.")
+    print("\n\nEvaluation completed.")
     time.sleep(1)
 
-    #Iterate over questions and capture user interaction.
-    #Evaluate the answers, record scores and times.
-    #Provide immediate feedback (correct/incorrect).
-    #Shows the progress of the quiz.
-
     print(f"Correct answers: {correct}/{len(questions)}")
-    print(f"Score obtained: {score_obtained}/{score_total}")
+    print(f"Score obtained: {score_obtained}/{total_score}")
     
-    # Performance-based feedback
-    if score_obtained >= (0.7 * score_total): # 70% or more to pass
+    if score_obtained >= (0.7 * total_score):
         print("\nCongratulations! You have the knowledge to vote.")
     else:
         print("\nYou did not reach the necessary score to vote.")
         print("We recommend reviewing information about the electoral process and the importance of informed voting.")
         print("Visit trusted websites or consult with civic education specialists.")
 
-# Function to close the program
 def farewell():
     print("\nThank you for using the Educational Voting Assistant.")
     print("Remember that an informed vote is a powerful vote.")
     print("See you next time!")
     time.sleep(2)
 
-# Main function
 def main():
-    welcome()
-    questionnaire()
+    Welcome()
+    quiz()
     farewell()
-# Ejecución del programa
+
 if __name__ == "__main__":
     main()
+
